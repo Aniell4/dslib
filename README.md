@@ -19,6 +19,8 @@ C.LeaveGuild(GuildID) # Leaves Guild from Provided GuildID
 
 C.SendMessage(ChannelID, Message) # Sends a Message to the specified ChannelID
 
+C.IterMessages(ChannelID) # Iterator Object For Messages in ChannelID 
+
 C.CreateDM(UserID) # Creates DM With Specified UserID (Returns ChannelID of DM)
 
 C.AddUserById(UserID) # Sends a Friend Request to the Specified UserID
