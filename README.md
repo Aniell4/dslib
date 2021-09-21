@@ -3,6 +3,8 @@ Discord Selfbot Python Library
 
 # Docs
 ```python
+from dspl import Client
+
 C = Client(TOKEN) # Creates Client Istance with provided Token
 
 C.GetCurrentUser() # Returnes Basic User Info (of Client Token)
