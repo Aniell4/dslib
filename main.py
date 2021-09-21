@@ -16,6 +16,9 @@ class Client(httpx.Client):
     def GetCurrentUser(s):
         '''Argless User Profile Call'''
         return s.GET('/users/@me')
+    def GetUserInfo(s, UserID):
+        '''User Profile Call using UserID'''
+        return s.GET(f'/users/{UserID}/profile?with_mutual_guilds=true')
     # https://discord.com/developers/docs/resources/invite#get-invite
     def InviteInfo(s, Invite: str):
         '''Only accepts a sanitized code currently.'''
@@ -126,10 +129,8 @@ def RandomX(Length):
     return os.urandom(Length).hex()[Length:]
 # Run Stuff
 
-TOKEN = "ODg5NjM3NzY1MDIzNjgyNjIy.YUkJvQ.d5L6ZxW8JlfEAjdJlYOPK4RhSBc"
+#TOKEN = "ODg5NjM3NzY1MDIzNjgyNjIy.YUkJvQ.d5L6ZxW8JlfEAjdJlYOPK4RhSBc"
 # locked token ODg5NjM3NzU3MjcyNjE2OTYw.YUkJuw.hljp4-vZ7_ifhgmYcAllZbs3YoE
 
-C = Client(TOKEN)
-print(C.GetCurrentUser())
-C.SetAboutMe('sussy baka')
-print(C.GetCurrentUser())
+#C = Client(TOKEN)
+#print(C.GetUserInfo('881970254316716052'))
