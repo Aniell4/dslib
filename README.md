@@ -7,6 +7,8 @@ C = Client(TOKEN) # Creates Client Istance with provided Token
 
 C.GetCurrentUser() # Returnes Basic User Info (of Client Token)
 
+C.GetUserInfo(UserID) # Returnes Basic User Info of Profived UserID (Works ONLY if Provided User and Client Token are Friends and/or have a guild in common)
+
 C.InviteInfo(Code) # Returnes Information of the invite code provided
 
 C.JoinInvite(Code) # Joins Guild With Token Provided in Client
