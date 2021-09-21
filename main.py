@@ -27,14 +27,31 @@ class Client(httpx.Client):
         '''Only accepts a sanitized code currently.'''
         Overwrite = {'x-context-properties': 'eyJsb2NhdGlvbiI6Ik1hcmtkb3duIExpbmsifQ=='}
         return s.POST(f'/invites/{Invite}', headers = Overwrite)
+    def LeaveGuild(s, GuildID: str):
+        '''Requires GuildID'''
+        return s.DELETE(f'/users/@me/guilds/{GuildID}', data = {"lurking": False})
     def SendMessage(s, Channel: str, **Message):
         '''Requires ChannelId, Use keyword args to pass in msg dict data.'''
         Payload = {"nonce": "".join(random.choice(string.digits) for _ in range(18)), "tts": False}
         Payload.update(Message); return s.POST(f'/channels/{Channel}/messages', json = 
             Payload, headers = {'referer': f'https://discord.com/channels/@me/{Channel}'})
+    def IterMessages(s, ChannelID: str, Before: str = ''):
+        '''Requires ChannelId'''
+        Params = {'limit': 100}
+        while True:
+            if Before:
+                Params['before'] = Before
+            R = s.GET(f'/channels/{ChannelID}/messages', params = Params)
+            yield from R.json
+            if not len(R.json):
+                return
+            Before = R.json[-1]['id']
     def CreateDM(s, User: str):
         '''Requires UserId'''
         return s.POST('/users/@me/channels', json = {'recipients': [User]})
+    def CloseDM(s, ChannelID: str):
+        '''Requires ChannelId'''
+        return s.DELETE(f'/channels/{ChannelID}')
     def AddUserById(s, UserId: str):
         '''Accepts UserIds as strings'''
         Overwrite = {'x-context-properties': 'eyJsb2NhdGlvbiI6IlVzZXIgUHJvZmlsZSJ9'}
@@ -60,22 +77,22 @@ class Client(httpx.Client):
     # Common Methods
     def GET(s, Path, *Args, **Kwargs):
         '''GET Request using GenReq. Returns Code, Data.'''
-        return s.GenReq(s.get, Path, *Args, **Kwargs)
+        return s.GenReq("GET", Path, *Args, **Kwargs)
     def POST(s, Path, *Args, **Kwargs):
         '''POST Request using GenReq. Returns Code, Data.'''
-        return s.GenReq(s.post, Path, *Args, **Kwargs)
+        return s.GenReq('POST', Path, *Args, **Kwargs)
     def PUT(s, Path, *Args, **Kwargs):
         '''PUT Request using GenReq. Returns Code, Data.'''
-        return s.GenReq(s.put, Path, *Args, **Kwargs)
+        return s.GenReq('PUT', Path, *Args, **Kwargs)
     def DELETE(s, Path, *Args, **Kwargs):
         '''DELETE Request using GenReq. Returns Code, Data.'''
-        return s.GenReq(s.delete, Path, *Args, **Kwargs)
+        return s.GenReq('DELETE', Path, *Args, **Kwargs)
     def PATCH(s, Path, *Args, **Kwargs):
         '''PATCH Request using GenReq. Returns Code, Data.'''
-        return s.GenReq(s.patch, Path, *Args, **Kwargs)
+        return s.GenReq("PATCH", Path, *Args, **Kwargs)
     def GenReq(s, Method, Path, *Args, **Kwargs) -> Response:
         '''General Purpose API Request Function. Requires a Method and Path. Returns the Status Code, Body.'''
-        Y = Method(API(Path), *Args, **Kwargs)
+        Y = s.request(Method, API(Path), *Args, **Kwargs)
         Code, Data = Y.status_code, Y.json() if Y.headers \
             ['content-type'] == 'application/json' else None
         if Code == 429:
@@ -133,4 +150,5 @@ def RandomX(Length):
 # locked token ODg5NjM3NzU3MjcyNjE2OTYw.YUkJuw.hljp4-vZ7_ifhgmYcAllZbs3YoE
 
 #C = Client(TOKEN)
-#print(C.GetUserInfo('881970254316716052'))
+
+
