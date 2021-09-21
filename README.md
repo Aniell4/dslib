@@ -17,7 +17,7 @@ C.JoinInvite(Code) # Joins Guild With Token Provided in Client
 
 C.LeaveGuild(GuildID) # Leaves Guild from Provided GuildID
 
-C.SendMessage(ChannelID, content="Message") # Sends a Message to the specified ChannelID
+C.SendMessage(ChannelID, content="Message") # Sends a Message to the specified ChannelID (supports embeds "embed={'title':'DSPL', 'description': 'best'})
 
 C.IterMessages(ChannelID) # Iterator Object For Messages in ChannelID 
 
