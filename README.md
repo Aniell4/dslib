@@ -15,6 +15,8 @@ C.InviteInfo(Code) # Returns Information of the invite code provided
 
 C.JoinInvite(Code) # Joins Guild With Token Provided in Client
 
+C.LeaveGuild(GuildID) # Leaves Guild from Provided GuildID
+
 C.SendMessage(ChannelID, Message) # Sends a Message to the specified ChannelID
 
 C.CreateDM(UserID) # Creates DM With Specified UserID (Returns ChannelID of DM)
