@@ -24,4 +24,8 @@ C.SetUsername(Username, Password) # Changes the Client Token Username to the Spe
 C.SetAvatar(URL) # Changes the Client Token Profile Picture to the Specified Photo URL
 
 C.SetAvatar(FileObject) # Changes the Client Token Profile Picture to the Specified Bytes FileObject
+
+C.SetAboutMe("Text") # Changes the Client Token About Me
+
+C.SetHypesquad(1) # Changes the Client Token Hypesquad (Accepts Values from 1 to 3)
 ```
