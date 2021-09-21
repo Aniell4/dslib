@@ -7,9 +7,9 @@ C = Client(TOKEN) # Creates Client Istance with provided Token
 
 C.GetCurrentUser() # Returnes Basic User Info (of Client Token)
 
-C.InviteInfo(code) # Returnes Information of the invite code provided
+C.InviteInfo(Code) # Returnes Information of the invite code provided
 
-C.JoinInvite(code) # Joins Guild With Token Provided in Client
+C.JoinInvite(Code) # Joins Guild With Token Provided in Client
 
 C.SendMessage(ChannelID, Message) # Sends a Message to the specified ChannelID
 
