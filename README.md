@@ -3,7 +3,7 @@ Discord Selfbot Python Library
 
 # Docs
 ```python
-from dspl import Client
+from dslib import Client
 
 C = Client(TOKEN) # Creates Client Istance with provided Token
 
