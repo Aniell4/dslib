@@ -1,5 +1,5 @@
-# D.S.P.L.
-Discord Selfbot Python Library
+# dslib
+Discord Supplemental Library
 
 # Docs
 ```python
