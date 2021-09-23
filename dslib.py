@@ -22,6 +22,19 @@ class Client(httpx.Client):
         '''User Profile Call using UserID'''
         return s.GET(f'/users/{UserID}/profile?with_mutual_guilds=true')
 
+    def GetUserAffinities(s):
+        '''Argless Users Affinities Call'''
+        return s.GET('/users/@me/affinities/users')
+    
+    def GetGuildAffinities(s):
+        '''Argless Guilds Affinities Call'''
+        return s.GET('/users/@me/affinities/guilds')
+    
+    def SetUserStatus(s, status):
+        '''Accepts online, idle, dnd, invisible. Will Show only if connected to WebSocket'''
+        assert status in ("online", "idle", "dnd", "invisible")
+        return s.PATCH('/users/@me/settings', json={"status": status})
+
     # https://discord.com/developers/docs/resources/invite#get-invite
     def InviteInfo(s, Invite: str):
         '''Only accepts a sanitized code currently.'''
