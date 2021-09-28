@@ -13,6 +13,9 @@ class Client(httpx.Client):
         super().__init__()
         s.headers = GetNewHeaders(Token)
 
+    def GetClientToken(s):
+        return s.headers['authorization']
+
     # https://discord.com/developers/docs/resources/user#get-current-user
     def GetCurrentUser(s):
         '''Argless User Profile Call'''
@@ -29,6 +32,10 @@ class Client(httpx.Client):
     def GetGuildAffinities(s):
         '''Argless Guilds Affinities Call'''
         return s.GET('/users/@me/affinities/guilds')
+
+    def GetUserGuilds(s):
+        '''Argless User Guilds Call'''
+        return s.GET('/users/@me/guilds')
     
     def SetUserStatus(s, status):
         '''Accepts online, idle, dnd, invisible. Will Show only if connected to WebSocket'''
