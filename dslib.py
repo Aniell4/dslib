@@ -55,9 +55,9 @@ class Message(message.Message):
             (f'/channels/{s.channel_id}/messages/{s.id}')
 
 class Client(httpx.Client):
-    def __init__(s, Token: str):
+    def __init__(s, Token: str, proxies = None):
         '''Discord REST API wrapper.'''
-        super().__init__()
+        super().__init__(proxies=proxies)
         s.headers = GetNewHeaders(Token)
         Client.Instance = s
 
@@ -203,9 +203,9 @@ class Client(httpx.Client):
 
 
 class AsyncClient(httpx.AsyncClient):
-    def __init__(s, Token: str):
+    def __init__(s, Token: str, proxies = None):
         '''Discord REST API wrapper.'''
-        super().__init__()
+        super().__init__(proxies=proxies)
         s.headers = GetNewHeaders(Token)
         Client.Instance = s
 
@@ -258,6 +258,7 @@ class AsyncClient(httpx.AsyncClient):
         Payload.update(Message); return await s.POST(f'/channels/{Channel}/messages', json = 
             Payload, headers = {'referer': f'https://discord.com/channels/@me/{Channel}'})
 
+    # doesn't work in async btw
     def IterMessages(s, ChannelID: str, Before: str = ''):
         '''Requires ChannelId'''
         Params = {'limit': 100}
